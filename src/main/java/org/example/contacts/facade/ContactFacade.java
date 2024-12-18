@@ -25,7 +25,7 @@ public class ContactFacade {
 
     public Optional<ContactDTO> getContactById(long id) {
         return contacts.stream()
-                .filter(contact -> contact.getId().longValue() == id)
+                .filter(contact -> contact.getId() == id)
                 .findFirst();
     }
 
@@ -41,6 +41,6 @@ public class ContactFacade {
     }
 
     public boolean deleteContact(long id) {
-        return contacts.removeIf(contact -> contact.getId().longValue() == id);
+        return contacts.removeIf(contact -> contact.getId() == id);
     }
 }
