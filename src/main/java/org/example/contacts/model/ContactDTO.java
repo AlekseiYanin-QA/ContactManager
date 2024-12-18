@@ -1,14 +1,38 @@
 package org.example.contacts.model;
 
-public class Contact {
-    private Long id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class ContactDTO {
+
+    @JsonProperty("id")
+    private Long id; // Поле для идентификатора контакта
+
+    @JsonProperty("firstName")
+    @NotBlank(message = "First name is mandatory")
     private String firstName;
+
+    @JsonProperty("lastName")
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
+
+    @JsonProperty("phoneNumber")
+    @NotBlank(message = "Phone number is mandatory")
     private String phoneNumber;
+
+    @JsonProperty("email")
+    @Email(message = "Email should be valid")
+    @NotBlank(message = "Email is mandatory")
     private String email;
 
-    // Конструкторы, геттеры и сеттеры
-    public Contact(Long id, String firstName, String lastName, String phoneNumber, String email) {
+    public ContactDTO() {}
+
+    public ContactDTO(Long id, String firstName, String lastName, String phoneNumber, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -16,43 +40,14 @@ public class Contact {
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String toString() {
+        return "ContactDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

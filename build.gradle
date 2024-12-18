@@ -1,9 +1,15 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+sourceCompatibility = '21'
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
 
 repositories {
     mavenCentral()
@@ -11,9 +17,29 @@ repositories {
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.11.3'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.14.2'
+    implementation group: 'com.opencsv', name: 'opencsv', version: '5.9'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '3.4.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.4.0'
+    implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.1.0'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.16'
+    implementation group: 'org.hibernate.validator', name: 'hibernate-validator', version: '9.0.0.CR1'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '3.4.0'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.12'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+    implementation group: 'org.springframework', name: 'spring-context', version: '6.2.1'
+}
+
+application {
+    mainClassName = 'org.example.contacts.ContactsApplication'
 }
 
 test {
     useJUnitPlatform()
+}
+
+compileJava {
+    options.compilerArgs += ['-parameters']
 }
